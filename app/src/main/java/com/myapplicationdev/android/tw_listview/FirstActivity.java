@@ -1,7 +1,11 @@
 package com.myapplicationdev.android.tw_listview;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -18,13 +22,23 @@ public class FirstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        lv = this.findViewById(R.id.lvYear);
 
         al = new ArrayList<String>();
         al.add("Year 1");
+        al.add("Year 2");
+        al.add("Year 3");
 
+        aa = new ArrayAdapter(this, R.layout.row_main, al);
 
-
-
-
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String year = al.get(position);
+                Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
+                intent.putExtra("year", year);
+                startActivity(intent);
+            }
+        });
     }
 }
